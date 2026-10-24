@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.fliptbit.sticky-notes",
+  "name": "Sticky Notes",
+  "version": "0.1.0",
+  "author": "John Reid",
+  "license": "MIT",
+  "description": "Quick sticky notes from the Omarchy bar, stored as plain Markdown files — optionally inside an Obsidian vault",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Sticky Notes",
+    "description": "Create, edit, and delete Markdown sticky notes from a bar popup",
+    "category": "Productivity",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "notesDir": "~/.local/share/sticky-notes",
+      "obsidianVault": "",
+      "vaultFolder": "Sticky Notes",
+      "showCount": true
+    },
+    "schema": [
+      {
+        "key": "notesDir",
+        "type": "string",
+        "label": "Notes folder",
+        "description": "Where notes are stored when no Obsidian vault is set. Each note is one Markdown file.",
+        "defaultValue": "~/.local/share/sticky-notes"
+      },
+      {
+        "key": "obsidianVault",
+        "type": "string",
+        "label": "Obsidian vault",
+        "description": "Path to an Obsidian vault root (the folder containing .obsidian). When set, notes live in the vault folder below and can be opened in Obsidian.",
+        "defaultValue": ""
+      },
+      {
+        "key": "vaultFolder",
+        "type": "string",
+        "label": "Folder inside vault",
+        "description": "Sub-folder of the vault that holds sticky notes. Empty uses the vault root.",
+        "defaultValue": "Sticky Notes"
+      },
+      {
+        "key": "showCount",
+        "type": "boolean",
+        "label": "Show note count",
+        "description": "Show how many notes exist next to the bar icon.",
+        "defaultValue": true
+      }
+    ]
+  }
+}
