@@ -1,5 +1,11 @@
 // Run with: node tests/model.test.js
 const assert = require("assert")
+
+// Quickshell's QML engine has no trimStart/trimEnd (or their trimLeft/
+// trimRight aliases); node does. Remove them so the tests fail the way the
+// shell would.
+for (const m of ["trimStart", "trimEnd", "trimLeft", "trimRight"]) delete String.prototype[m]
+
 const M = require("../Model.js")
 
 const H = "/home/u"
@@ -18,6 +24,7 @@ assert.strictEqual(M.defaultTitle(new Date(2026, 9, 4, 9, 5)), "Note 2026-10-04 
 assert.strictEqual(M.preview("---\ntags: [x]\n---\n# Hi\n\n- [ ] milk\n- eggs\n"), "Hi · milk · eggs")
 assert.strictEqual(M.preview("---\nunterminated"), "")
 assert.strictEqual(M.preview("x".repeat(200), 10).length, 10)
+assert.strictEqual(M.preview("aaaa bbbb cccc", 6), "aaaa…")
 
 const R = M.RECORD_SEP, F = M.FIELD_SEP
 const notes = M.parseListing(R + "/d/Old.md" + F + "100" + F + "old body" + R + "/d/New.md" + F + "200" + F + "")
