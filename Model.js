@@ -108,7 +108,9 @@ function preview(text, maxChars) {
     if (line !== "") out.push(line)
   }
   var joined = out.join(" · ")
-  return joined.length > limit ? joined.slice(0, limit - 1).trimEnd() + "…" : joined
+  // No trimEnd(): the shell's QML engine lacks it, and a throw here leaves
+  // the whole list stuck on its last good state.
+  return joined.length > limit ? joined.slice(0, limit - 1).replace(/\s+$/, "") + "…" : joined
 }
 
 // Parses the listing script's output: records of path, mtime, head-of-file.
